@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+feedparser
+apscheduler
+python-telegram-bot
+requests
+python-dotenv 
