@@ -257,6 +257,42 @@ async def root():
         }
     }
 
+@app.get("/health")
+async def health_check():
+    """健康檢查端點 - 用於 Railway 部署監控"""
+    try:
+        # 檢查數據庫連接
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT 1")
+        cursor.fetchone()
+        conn.close()
+        
+        return {
+            "status": "healthy",
+            "timestamp": datetime.now().isoformat(),
+            "version": "2.0.0",
+            "database": "connected",
+            "services": {
+                "api": "running",
+                "database": "connected"
+            }
+        }
+    except Exception as e:
+        return JSONResponse(
+            status_code=503,
+            content={
+                "status": "unhealthy",
+                "timestamp": datetime.now().isoformat(),
+                "version": "2.0.0",
+                "error": str(e),
+                "services": {
+                    "api": "running",
+                    "database": "error"
+                }
+            }
+        )
+
 @app.get("/api/ads")
 async def get_ads(category: str = None, limit: int = 10):
     """獲取廣告列表"""
