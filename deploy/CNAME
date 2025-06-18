@@ -1,0 +1,12 @@
+# 請將下面的域名替換為您的實際域名
+# 例如：yourdomain.com 或 www.yourdomain.com
+#
+# 設定步驟：
+# 1. 將下面的範例域名替換為您的實際域名
+# 2. 在 DNS 提供商中設定 CNAME 記錄
+# 3. 等待 DNS 傳播（通常需要幾分鐘到幾小時）
+#
+# 範例：
+# yourdomain.com
+# www.yourdomain.com
+# worldseo.yourdomain.com 

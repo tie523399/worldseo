@@ -25,4 +25,5 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./deploy
-        cname: # 如果有自訂域名，在這裡設定 
+        # 如果有自訂域名，取消註釋下面的行並填入您的域名
+        # cname: yourdomain.com 
