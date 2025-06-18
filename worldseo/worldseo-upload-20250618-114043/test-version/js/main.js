@@ -308,42 +308,6 @@ function downloadIdentity(btn) {
     }, 1000);
 }
 
-// SweetAlert2 + Lottie 工商合作彈窗
-function showBusinessCoopModal() {
-  Swal.fire({
-    title: '讓我們一起創造全球影響力！',
-    html: `
-      <div id="lottie-biz" style="width:120px;height:120px;margin:0 auto"></div>
-      <div style="margin:16px 0 8px 0;font-size:1.1em;">
-        <b>聯絡我們：</b><br>
-        📧 <span id="biz-email">partner@yourdomain.com</span>
-        <button onclick="copyBizEmail()" style="margin-left:8px;">一鍵複製</button><br>
-        <img src="https://yourdomain.com/line-qr.png" alt="Line QR" style="width:60px;height:60px;margin:8px 0;">
-        <br>
-        <a href="https://t.me/yourtg" target="_blank">Telegram</a>
-      </div>
-    `,
-    showCloseButton: true,
-    showConfirmButton: true,
-    confirmButtonText: '立即洽談',
-    didOpen: () => {
-      lottie.loadAnimation({
-        container: document.getElementById('lottie-biz'),
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: 'https://assets2.lottiefiles.com/packages/lf20_2ks3pjua.json'
-      });
-    }
-  });
-}
-
-function copyBizEmail() {
-  const email = document.getElementById('biz-email').innerText;
-  navigator.clipboard.writeText(email);
-  Swal.fire('已複製', 'Email 已複製到剪貼簿', 'success');
-}
-
 // 初始化應用
 document.addEventListener('DOMContentLoaded', () => {
     // 等待所有依賴項載入
@@ -402,24 +366,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     tryInit();
-});
-
-function scrollToSection(selector) {
-  const el = document.querySelector(selector);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-
-function webBotNews() {
-  loadNews();
-  setTimeout(() => scrollToSection('#news-section'), 200);
-}
-
-function webBotAds() {
-  loadAds();
-  setTimeout(() => scrollToSection('#ad-section'), 200);
-}
-
-function webBotIdentity() {
-  generateIdentity();
-  setTimeout(() => scrollToSection('#results'), 200);
-} 
+}); 

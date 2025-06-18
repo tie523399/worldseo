@@ -1,0 +1,5 @@
+# API 重定向到後端服務器
+/api/* https://your-backend-api.com/api/:splat 200
+
+# SPA 路由處理
+/* /index.html 200 

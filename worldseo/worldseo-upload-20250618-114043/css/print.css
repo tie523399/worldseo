@@ -1,0 +1,112 @@
+/* 列印優化 */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .controls,
+    .top-bar,
+    .footer,
+    .seo-content,
+    .engine-indicator,
+    .bg-animation,
+    .loading-overlay {
+        display: none !important;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0;
+    }
+    
+    .header {
+        margin-bottom: 20px;
+    }
+    
+    .header h1 {
+        color: black;
+        -webkit-text-fill-color: black;
+        background: none;
+        font-size: 24pt;
+    }
+    
+    .header .subtitle {
+        color: #666;
+        font-size: 12pt;
+    }
+    
+    .results {
+        display: block;
+    }
+    
+    .identity-card {
+        page-break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+        background: white;
+        margin-bottom: 20px;
+        padding: 20px;
+    }
+    
+    .identity-card::before {
+        display: none;
+    }
+    
+    .card-header {
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .card-actions {
+        display: none;
+    }
+    
+    .flag {
+        font-size: 24pt;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    .country-info h2 {
+        color: black;
+        font-size: 16pt;
+    }
+    
+    .country-info p {
+        color: #666;
+        font-size: 10pt;
+    }
+    
+    .field {
+        margin: 10px 0;
+        display: flex;
+        gap: 10px;
+    }
+    
+    .label {
+        color: #666;
+        font-size: 10pt;
+        min-width: 100px;
+    }
+    
+    .label-icon {
+        display: none;
+    }
+    
+    .value {
+        color: black;
+        font-size: 11pt;
+    }
+    
+    .english-translation {
+        color: #666;
+        font-size: 9pt;
+    }
+    
+    a {
+        color: black;
+        text-decoration: underline;
+    }
+} 
