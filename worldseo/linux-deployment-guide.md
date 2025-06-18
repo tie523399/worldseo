@@ -11,21 +11,51 @@
 
 ---
 
+## 📥 專案獲取方式
+
+### 方式一：從 GitHub 直接下載
+
+```bash
+# 下載專案到當前目錄
+git clone https://github.com/tie523399/worldseo.git
+cd worldseo
+
+# 或者下載到指定目錄
+git clone https://github.com/tie523399/worldseo.git /path/to/your/project
+cd /path/to/your/project
+```
+
+### 方式二：使用部署腳本自動下載
+
+部署腳本會自動檢測並提供下載選項：
+- 自動安裝 Git（如果未安裝）
+- 從 GitHub 下載最新版本
+- 可選擇移動到指定目錄
+
+### 方式三：手動上傳檔案
+
+如果您有本地檔案，可以直接上傳到服務器：
+```bash
+# 使用 scp 上傳
+scp -r /local/path/to/worldseo user@server:/tmp/
+ssh user@server
+cd /tmp/worldseo
+```
+
+---
+
 ## 🛠️ 方案一：自動化部署腳本
 
 ### 1. 下載並執行自動部署腳本
 
 ```bash
-# 下載專案
-git clone https://github.com/tie523399/worldseo.git
-cd worldseo
+# 方法 A: 直接執行（腳本會自動下載專案）
+curl -sSL https://raw.githubusercontent.com/tie523399/worldseo/main/quick-deploy.sh | bash
 
-# 修改部署配置
-nano deploy.sh
-
-# 執行部署腳本
-chmod +x deploy.sh
-sudo ./deploy.sh
+# 方法 B: 下載後執行
+wget https://raw.githubusercontent.com/tie523399/worldseo/main/quick-deploy.sh
+chmod +x quick-deploy.sh
+./quick-deploy.sh
 ```
 
 ### 2. 部署腳本配置說明
@@ -354,6 +384,18 @@ sudo crontab -e
    ```bash
    sudo nginx -t
    sudo systemctl status nginx
+   ```
+
+5. **Git 下載失敗**
+   ```bash
+   # 檢查網路連接
+   ping github.com
+   
+   # 檢查 Git 配置
+   git config --global --list
+   
+   # 使用 HTTPS 代理（如果需要）
+   git config --global http.proxy http://proxy.example.com:8080
    ```
 
 ---

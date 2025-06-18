@@ -17,8 +17,78 @@ fi
 
 # 檢查是否在正確的目錄
 if [ ! -f "main.py" ] || [ ! -f "bot.py" ]; then
-    echo "❌ 錯誤：請在專案根目錄執行此腳本"
-    exit 1
+    echo "📥 檢測到您不在專案目錄中"
+    echo ""
+    echo "請選擇操作："
+    echo "1. 從 GitHub 下載專案"
+    echo "2. 手動指定專案目錄"
+    echo "0. 退出"
+    echo ""
+    
+    read -p "請選擇 (0-2): " download_choice
+    
+    case $download_choice in
+        1)
+            echo ""
+            echo "📥 從 GitHub 下載專案..."
+            
+            # 檢查 git 是否安裝
+            if ! command -v git &> /dev/null; then
+                echo "❌ Git 未安裝，正在安裝..."
+                sudo apt update
+                sudo apt install -y git
+            fi
+            
+            # 創建臨時目錄
+            TEMP_DIR="/tmp/worldseo-download-$$"
+            mkdir -p $TEMP_DIR
+            cd $TEMP_DIR
+            
+            # 下載專案
+            echo "🔗 正在從 GitHub 下載專案..."
+            git clone https://github.com/tie523399/worldseo.git .
+            
+            if [ ! -f "main.py" ] || [ ! -f "bot.py" ]; then
+                echo "❌ 下載失敗，請檢查網路連接"
+                rm -rf $TEMP_DIR
+                exit 1
+            fi
+            
+            echo "✅ 專案下載完成"
+            echo "📁 專案位置: $TEMP_DIR"
+            echo ""
+            
+            # 詢問是否移動到指定目錄
+            read -p "是否將專案移動到指定目錄？(y/N): " move_choice
+            if [[ $move_choice =~ ^[Yy]$ ]]; then
+                read -p "請輸入目標目錄 (預設: ~/worldseo): " target_dir
+                target_dir=${target_dir:-"$HOME/worldseo"}
+                
+                mkdir -p $target_dir
+                cp -r . $target_dir/
+                cd $target_dir
+                rm -rf $TEMP_DIR
+                echo "✅ 專案已移動到: $target_dir"
+            fi
+            ;;
+        2)
+            read -p "請輸入專案目錄路徑: " project_dir
+            if [ ! -d "$project_dir" ] || [ ! -f "$project_dir/main.py" ]; then
+                echo "❌ 指定的目錄不存在或不是有效的專案目錄"
+                exit 1
+            fi
+            cd $project_dir
+            echo "✅ 已切換到專案目錄: $project_dir"
+            ;;
+        0)
+            echo "👋 再見！"
+            exit 0
+            ;;
+        *)
+            echo "❌ 無效選擇"
+            exit 1
+            ;;
+    esac
 fi
 
 # 獲取用戶輸入
