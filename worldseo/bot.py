@@ -364,7 +364,7 @@ class WorldSEOBot:
             
         except ValueError:
             await update.message.reply_text("❌ 廣告ID必須是數字")
-    except Exception as e:
+        except Exception as e:
             logger.error(f"刪除廣告時出錯: {str(e)}")
             await update.message.reply_text("❌ 刪除廣告失敗")
     
@@ -383,35 +383,38 @@ class WorldSEOBot:
             )
             return
         
-    try:
-        ad_id = int(context.args[0])
+        try:
+            ad_id = int(context.args[0])
             title = context.args[1]
             description = context.args[2]
             category = context.args[3] if len(context.args) > 3 else "general"
             priority = int(context.args[4]) if len(context.args) > 4 else 0
-            
+
             conn = get_db_connection()
             cursor = conn.cursor()
-            
-            cursor.execute('''
-                UPDATE ads 
+
+            cursor.execute(
+                '''
+                UPDATE ads
                 SET title = ?, description = ?, category = ?, priority = ?, updated_at = CURRENT_TIMESTAMP
                 WHERE id = ?
-            ''', (title, description, category, priority, ad_id))
-            
+                ''',
+                (title, description, category, priority, ad_id)
+            )
+
             if cursor.rowcount == 0:
                 await update.message.reply_text(f"❌ 找不到ID為 {ad_id} 的廣告")
                 conn.close()
                 return
-            
+
             conn.commit()
             conn.close()
-            
+
             await update.message.reply_text(f"✅ 廣告更新成功！\nID: {ad_id}\n標題: {title}")
-            
+
         except ValueError:
             await update.message.reply_text("❌ 廣告ID必須是數字")
-    except Exception as e:
+        except Exception as e:
             logger.error(f"編輯廣告時出錯: {str(e)}")
             await update.message.reply_text("❌ 更新廣告失敗")
     
